@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static "./css/style.css" %}">
+</head>
+<body>
+    <div class="container">
+        <form action="addQuestion" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1>Quiz</h1>
+        <div class="question-form">
+            <div id="questions">
+                <div class="questionName">
+                    <label for="name">Subject name:</label>
+                    <input type="text" name="name" id="name" required>
+                </div>
+                <div class="questionContainer">
+                    <textarea name="question1" id="questionText" placeholder="Question text" required></textarea>
+                    <input type="file" name="file1" class="file">
+                    <div id="optionsContainer-1" class="optionsContainer">
+                        <input type="radio" name="option1" value='1' id="option1" class="option-checkbox" checked>
+                        <input type="text" name="answer-1-1" placeholder="Option 1" class="option" required>
+                    </div>
+                    <div class="buttonContainer">
+                        <button type="button" onclick="addOption(1, 1)">Add Option</button>
+                    </div>
+                </div>
+            </div>
+            <button type="button" onclick="addQuestion()">Add Question</button>
+        </div>
+        <div id="questionsContainer">
+            <!-- Questions will be appended here -->
+        </div>
+        <button type="submit" id="submit">Submit</button>   
+        </form>
+    </div>
+
+    <script src="{% static "./js/app.js" %}"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ subject.name }} fanidan test savollari:</title>
+    <link rel="stylesheet" href="{% static "./css/style.css" %}">
+</head>
+<body>
+    <div class="container">
+        <form id="questionForm" action="checkAnswers" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="question-form">
+            
+                <input type="hidden" id="subject_id" value="{{ subject.id }}">
+                <p class="subject_name">Question № <span id="count">1</span> / {{ subject.count }}</p>
+                <input type="hidden" id="subject_count" value="{{ subject.count }}">
+                {% for question in questions %}
+                    <input type="hidden" id="option{{ forloop.counter }}" value="{{ question.id }}">
+                
+                    {% if forloop.counter == 1 %}
+                    <div id="question{{ forloop.counter }}" class="active">
+                        <div class="questionContainer2">
+                            <p class="questionText">
+                             {{ question.text }}
+                            </p>
+                            {% if question.image %}
+                            <img src="{{ question.image.url }}" alt="image">
+                            {% endif %}
+                            <div class="questionOptions">
+                                {% for option in question.options %}
+                                    <p>
+                                        <input type="radio" value="{{ option.id }}" id="option{{forloop.parentloop.counter}}{{forloop.counter}}" class="option-checkbox">
+                                        <label for="option{{forloop.parentloop.counter}}{{forloop.counter}}">{{ forloop.counter|number_to_letter }}) {{ option.value }}</label>
+                                    </p>
+                                {% endfor %}                                
+                            </div>
+                        </div>
+                    </div>
+
+                        {% else %}
+                        <div id="question{{ forloop.counter }}" class="noactive">
+                            <div class="questionContainer2">
+                                <p class="questionText">
+                                    {{ question.text }}
+                                </p>
+                                {% if question.image %}
+                                <img src="{{ question.image.url }}" alt="image">
+                                {% endif %}
+                                <div class="questionOptions">
+                                    {% for option in question.options %}
+                                        <p>
+                                            <input type="radio" value='{{ option.id }}' id="option{{forloop.parentloop.counter}}{{forloop.counter}}" class="option-checkbox">
+                                            <label for="option{{forloop.parentloop.counter}}{{forloop.counter}}">{{ forloop.counter|number_to_letter }}) {{ option.value }}</label>
+                                        </p>
+                                    {% endfor %}                                
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+    <script src="{% static "./js/question.js" %}"></script>
+    
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ subject.name }} fanidan test natijasi:</title>
+    <link rel="stylesheet" href="{% static "./css/style.css" %}">
+</head>
+<body>
+    <div class="container" style="text-align: center;">
+        {{ subject.name }} fanidan {{ result.questions_count }} ta testdan {{ result.correct_answers }} ta topdingiz.<br>
+        {{ result.score }}</br>
+        Iltimos menejerga murojaat qiling!!!
+    </div>
+</body>
+</html>

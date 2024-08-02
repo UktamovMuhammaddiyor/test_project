@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Score</title>
+    <link rel="stylesheet" href="{% static "./css/style.css" %}">
+</head>
+<body>
+    <div class="container">
+        <form action="addQuestionScore" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1>Score</h1>
+        <div class="scores-form">
+            <h2>Fan nomi: <i>{{ subject.name }}</i></h2>
+            <p>Bunda siz testdan olgan baliga qaram darajasini belgilashingiz kerak. 1-majburiy.</p>
+            <div class="score-form">
+                <input type="hidden" name="subject_id" value="{{ subject.id }}">
+                <label for="score5">90 - 100 %:</label>
+                <input type="text" name="score5" class="score" placeholder="daraja..." required>
+                <label for="score4">70 - 89 %:</label>
+                <input type="text" name="score4" class="score" placeholder="daraja...">
+                <label for="score3">60 - 69 %:</label>
+                <input type="text" name="score3" class="score" placeholder="daraja...">
+                <label for="score2">40 - 59 %:</label>
+                <input type="text" name="score2" class="score" placeholder="o'tolmadi...">
+                <label for="score1">20 - 39 %:</label>
+                <input type="text" name="score1" class="score" placeholder="o'tolmadi...">
+                <label for="score0">0 - 19 %:</label>
+                <input type="text" name="score0" class="score" placeholder="o'tolmadi...">
+            </div>
+
+        </div>
+        <div id="questionsContainer">
+            <!-- Questions will be appended here -->
+        </div>
+        <button type="submit" id="submit">Submit</button>   
+
+        </form>
+    </div>
+
+    <script src="{% static "./js/app.js" %}"></script>
+</body>
+</html>
