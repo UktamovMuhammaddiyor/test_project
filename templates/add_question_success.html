@@ -9,8 +9,18 @@
     <link rel="stylesheet" href="{% static "./css/style.css" %}">
 </head>
 <body>
+    <nav class="navbar" style="position:absolute">
+        <div class="container">
+            {% comment %} <a href="#" class="brand">My Website</a> {% endcomment %}
+            <ul class="nav-menu">
+                <li><a href="{% url "tests" %}">Tests</a></li>
+                <li><a href="{% url "courses" %}">Courses</a></li>
+                <li><a href="{% url "availableCourses" %}">Available Courses</a></li>
+            </ul>
+        </div>
+    </nav>
     <div class="container">
-        <h1>{{ subject.name }} fani bo'yicha test qo'shildi.</h1>
+        <h1><a href="{% url "test" %}?id={{subject.id}}">{{ subject.name }}</a> fani bo'yicha test qo'shildi.</h1>
     </div>
 </body>
 </html>

@@ -8,14 +8,34 @@
     <link rel="stylesheet" href="{% static "./css/style.css" %}">
 </head>
 <body>
-    <div class="container">
+    <nav class="navbar">
+        <div class="container">
+            {% comment %} <a href="#" class="brand">My Website</a> {% endcomment %}
+            <ul class="nav-menu">
+                <li><a href="{% url "tests" %}">Tests</a></li>
+                <li><a href="{% url "courses" %}">Courses</a></li>
+                <li><a href="{% url "availableCourses" %}">Available Courses</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container" style="margin-top:10px">
         <form action="addQuestion" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <h1>Quiz</h1>
         <div class="question-form">
             <div id="questions">
+                <div class="questionBranch">
+                    <label for="branch">Branch name </label>
+                    <input list="branches" name="branch" id="branch" placeholder="choose one from the menu or create your own">
+                    
+                    <datalist id="branches">
+                      {% for branch in branches %}
+                      <option value="{{branch}}">
+                      {% endfor %}
+                    </datalist>  
+                </div>
                 <div class="questionName">
-                    <label for="name">Subject name:</label>
+                    <label for="name">Question name:</label>
                     <input type="text" name="name" id="name" required>
                 </div>
                 <div class="questionContainer">
@@ -38,7 +58,6 @@
         <button type="submit" id="submit">Submit</button>   
         </form>
     </div>
-
     <script src="{% static "./js/app.js" %}"></script>
 </body>
 </html>

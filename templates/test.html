@@ -11,7 +11,6 @@
 <body>
     <div class="container">
         <form id="questionForm" action="checkAnswers" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
             
             <div class="question-form">
             
@@ -33,8 +32,8 @@
                             <div class="questionOptions">
                                 {% for option in question.options %}
                                     <p>
-                                        <input type="radio" value="{{ option.id }}" id="option{{forloop.parentloop.counter}}{{forloop.counter}}" class="option-checkbox">
-                                        <label for="option{{forloop.parentloop.counter}}{{forloop.counter}}">{{ forloop.counter|number_to_letter }}) {{ option.value }}</label>
+                                        <input type="radio" value="{{ option.id }}" id="option{{forloop.parentloop.counter}}-{{forloop.counter}}" class="option-checkbox">
+                                        <label for="option{{forloop.parentloop.counter}}-{{forloop.counter}}">{{ forloop.counter|number_to_letter }}) {{ option.value }}</label>
                                     </p>
                                 {% endfor %}                                
                             </div>
@@ -53,8 +52,8 @@
                                 <div class="questionOptions">
                                     {% for option in question.options %}
                                         <p>
-                                            <input type="radio" value='{{ option.id }}' id="option{{forloop.parentloop.counter}}{{forloop.counter}}" class="option-checkbox">
-                                            <label for="option{{forloop.parentloop.counter}}{{forloop.counter}}">{{ forloop.counter|number_to_letter }}) {{ option.value }}</label>
+                                            <input type="radio" value='{{ option.id }}' id="option{{forloop.parentloop.counter}}-{{forloop.counter}}" class="option-checkbox">
+                                            <label for="option{{forloop.parentloop.counter}}-{{forloop.counter}}">{{ forloop.counter|number_to_letter }}) {{ option.value }}</label>
                                         </p>
                                     {% endfor %}                                
                                 </div>

@@ -4,15 +4,63 @@
     padding: 0;
 }
 body {
-    /* font-family: Arial, sans-serif; */
+    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
+
+/* navbar start  */
+.navbar {
+    width: 100%;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar .container {
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    font-size: 1.5em;
+    text-decoration: none;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li {
+    margin-left: 20px;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1em;
+}
+
+.nav-menu a:hover {
+    text-decoration: underline;
+}
+/* navbar end  */
+
 
 .questionContainer {
     padding: 10px 20px;
@@ -97,20 +145,33 @@ button:hover {
 .scores-form h2{
     margin-bottom: 30px;
 }
-.score-form {
+.scores {
     width: 100%;
     padding: 10px 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
 }
-.score-form label {
-    width: 20%;
+.scores .select-score{
+    width: 15%;
 }
-.score-form input {
-    width: 80%;
+
+.scores .select-score select {
+    width: 40px;
+    padding: 3px 5px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
 }
+
+.scores input {
+    width: 70%;
+}
+
 #submit {
     width: 100%;
 }
@@ -127,13 +188,11 @@ button:hover {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    /* background-color: #007BFF; */
     margin: 10px 0;
 }
 .questionText {
     width: 100%;
-    /* border: 1px solid #ddd; */
-    /* border-radius: 12px; */
+    word-wrap: break-word;
     padding: 1em 0;
 }
 .questionOptions label {
@@ -168,4 +227,107 @@ button:hover {
 .questionContainer2 img{
     width: 100%;
     border-radius: 12px;
+}
+
+/* section tests start  */
+
+.tests {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* align-items: start; */
+}
+
+.tests .container {
+    width: 90%;
+    padding: 2.5em;
+    max-width: 1200px;
+    min-height: 100vh;
+}
+
+.tests .top {
+    width: 100%;
+    padding: 0 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+    
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+table i {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+table .fa-pen {
+    color: rgb(255, 170, 0);
+}
+
+table .fa-trash{
+    color: red;
+}
+#deleteSubjectContainer {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#deleteSubjectContainer .container {
+    width: 200px;
+}
+#deleteSubjectContainer .container a {
+    background-color:#007BFF;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+#deleteSubjectContainer .container p{
+    width: 100%;
+}
+#deleteSubjectContainer .buttonContainer {
+    margin-top: 18px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+#deleteSubjectContainer .container a:nth-child(2) {
+    background-color: red;
+}
+
+/* section tests start end */
+
+@media only screen and (max-width:720px) {
+    .container {
+        width: 95% !important;
+        padding: 12px !important;
+    }
+
+    .scores .select-score {
+        width: 50%;
+    }
+    .scores input {
+        width: 100%;
+    }
 }

@@ -1,0 +1,27 @@
+<!-- templates/home.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static "./css/style.css" %}">
+
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <nav class="navbar" style="position:absolute;">
+        <div class="container">
+            {% comment %} <a href="#" class="brand">My Website</a> {% endcomment %}
+            <ul class="nav-menu">
+                <li><a href="{% url "tests" %}">Tests</a></li>
+                <li><a href="{% url "courses" %}">Courses</a></li>
+                <li><a href="{% url "availableCourses" %}">Available Courses</a></li>
+            </ul>
+        </div>
+    </nav>
+    {% endif %}
+    <h1>Welcome, {{ user.username }}!</h1>
+</body>
+</html>

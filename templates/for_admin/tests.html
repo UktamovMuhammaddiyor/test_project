@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static "./css/style.css" %}">
+    <script src="https://kit.fontawesome.com/86abd71d54.js"></script>
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            {% comment %} <a href="#" class="brand">My Website</a> {% endcomment %}
+            <ul class="nav-menu">
+                <li><a href="{% url "tests" %}">Tests</a></li>
+                <li><a href="{% url "courses" %}">Courses</a></li>
+                <li><a href="{% url "availableCourses" %}">Available Courses</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="tests">
+        <div class="container">
+            <div class="top">
+                <p>ALL QUESTIONS</p>
+                <a href="{% url 'addQuestion' %}">ADD QUESTION <b>+</b> </a>
+            </div>
+            <table class="table">
+                <tr>
+                    <th>Question name</th>
+                    <th>Status</th>
+                    <th>Number of questions</th>
+                    <th>Grade system</th>
+                    <th></th>
+                </tr>
+                {% for subject in subjects %}
+                <tr>
+                    <td><a href="{% url "test" %}?id={{subject.id}}">{{subject.name}}</a></td>
+                    <td style="width: 100px">
+                    {% if subject.is_active %}
+                    Active
+                    {% else %}
+                    No active
+                    {% endif %}
+                    </td>
+                    <td>{{ subject.count }}</td>
+                    
+                    <td>
+                        {% for score in subject.scores.score %}
+                        {{score.min}} dan {{ score.max }} gacha -- {{ score.grade }} | 
+                        {% endfor %} 
+                    </td>
+                    <td style="width:150px;text-align: right;"><a href="{% url "editQuestion" %}?id={{subject.id}}"><i class="fa-solid fa-pen"></i></a><i class="fa-solid fa-trash" onclick="deleteSubject('{{subject.id}}', '{{subject.name}}')"></i></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </section>
+
+    <div id="deleteSubjectContainer"></div>
+    <script src="{% static './js/app.js' %}"></script>
+</body>
+</html>

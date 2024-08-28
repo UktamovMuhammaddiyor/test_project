@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit question {{ subject.name }}</title>
+    <link rel="stylesheet" href="{% static "./css/style.css" %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            {% comment %} <a href="#" class="brand">My Website</a> {% endcomment %}
+            <ul class="nav-menu">
+                <li><a href="{% url "tests" %}">Tests</a></li>
+                <li><a href="{% url "courses" %}">Courses</a></li>
+                <li><a href="{% url "availableCourses" %}">Available Courses</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container" style="margin-top:10px">
+        <form action="editQuestion" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1>Quiz</h1>
+        <div class="question-form">
+            <div id="questions">
+                <div class="questionBranch">
+                    <label for="branch">Branch name </label>
+                    <input list="branches" name="branch" id="branch" placeholder="choose one from the menu or create your own" value="{{subject.branch_name.name}}">
+                    <input type="hidden" name="subject_id" value="{{subject.id}}">
+                    <datalist id="branches">
+                      {% for branch in branches %}
+                      <option value="{{branch}}">
+                      {% endfor %}
+                    </datalist>  
+                </div>
+                <div class="questionName">
+                    <label for="name">Question name:</label>
+                    <input type="text" name="name" id="name" required value="{{subject.name}}">
+                </div>
+                {% for question in questions %}
+                <div class="questionContainer">                    
+                    <textarea name="question{{forloop.counter}}" id="questionText" placeholder="Question text" required>{{question.text}}</textarea>
+                    {{question.image.url}}
+                    {% if question.image %}
+                        <img src="{{ question.image.url }}" alt="image">
+                    {% endif %}
+                    <input type="file" name="file{{forloop.counter}}" class="file">
+                    <div id="optionsContainer-{{forloop.counter}}" class="optionsContainer">
+                    {% for option in question.options.options %}
+                        {% if forloop.counter == question.answer %}
+                            <input type="radio" name="option{{forloop.parentloop.counter}}" value='{{forloop.counter}}' id="option-{{forloop.counter}}" class="option-checkbox" checked>
+                        {% else %}
+                        <input type="radio" name="option{{forloop.parentloop.counter}}" value='{{forloop.counter}}' id="option-{{forloop.counter}}" class="option-checkbox">
+
+                            {% endif %}
+                        <input type="text" name="answer-{{forloop.parentloop.counter}}-{{forloop.counter}}" placeholder="Option {{forloop.counter}}" class="option" required value='{{option}}'>
+                    {% endfor %}    
+                    </div>
+                    <div class="buttonContainer">
+                        <button type="button" onclick="addOption({{forloop.counter}}, {{forloop.counter}})">Add Option</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="button" onclick="addQuestion()">Add Question</button>
+        </div>
+        <div id="questionsContainer">
+            <!-- Questions will be appended here -->
+        </div>
+        <button type="submit" id="submit">Submit</button>   
+        </form>
+    </div>
+    <script src="{% static "./js/app.js" %}"></script>
+</body>
+</html>

@@ -16,7 +16,7 @@ def sendMessage(chat_id, text, message_type="Message", reply_markup={}, parse_mo
 
     if entities:
         parse_mode = ""
-    print(message_type)
+        
     if message_type == "Message":
         return requests.post(BOT_API + 'sendMessage', {
         'chat_id': chat_id,

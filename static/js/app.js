@@ -1,17 +1,14 @@
-let optionCount = {
-    "question1": 1
-};
-let increment = 1;
+let increment = 1,
+    increment_for_grade = 1;
 let dictionary = {
     "questions": []
 }
-
+let eventListener = 0
 
 function addOption(quest, n) {
-    optionCount['question'+quest] ++
 
-    // optionCount = optionCount[]
-    let optionCount2 = optionCount['question'+quest]
+    let a = document.getElementById(`optionsContainer-${n}`)
+    let optionCount2 = Number(a.children[a.children.length - 1].placeholder.slice(-1)) + 1
 
     const optionsContainer = document.getElementById('optionsContainer-' + n);
     const newOption = document.createElement('input');
@@ -31,9 +28,13 @@ function addOption(quest, n) {
 }
 
 function addQuestion() {
-    increment++;
-    optionCount[`question${increment}`] = 1;
-
+    
+    let count = document.getElementsByClassName("optionsContainer")
+    count = count[count.length - 1].id
+    let chiziq = count.indexOf('-')
+    count = count.slice(chiziq + 1)
+    
+    increment = Number(count) + 1
 
     const questions = document.getElementById('questions');
 
@@ -74,13 +75,7 @@ function addQuestion() {
 
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'buttonContainer';
-
-    const addButton = document.createElement('button');
-    addButton.type = 'button';
-    addButton.textContent = 'Add Option';
-    addButton.onclick = () => addOption(increment, increment);
-
-    buttonContainer.appendChild(addButton);
+    buttonContainer.innerHTML += `<div class="buttonContainer"><button type="button" onclick="addOption(${increment}, ${increment})">Add Option</button></div>`;
 
     questionContainer.appendChild(textarea);
     questionContainer.appendChild(fileInput);
@@ -88,4 +83,60 @@ function addQuestion() {
     questionContainer.appendChild(buttonContainer);
 
     questions.appendChild(questionContainer);
+}
+
+function addGrade() {
+    increment_for_grade += 1
+    const forms = document.getElementById('score-form');
+    const to = document.getElementById(`to${increment_for_grade-1}`);
+    const count = document.getElementById('number_of_questions');
+    const container = document.createElement('div');
+    
+    container.className = 'scores';
+    let options_from = ""
+    let options_to = ""
+    for (let index = 0; index < Number(count.value); index++) {
+        let element
+        if (Number(to.value) === (index - 1)) {
+            element = `<option value="${index}" selected>${index}</option>`;  
+        } else {
+            element = `<option value="${index}">${index}</option>`;
+        }
+        options_from += element
+        options_to += element
+    }
+    options_from += `<option value="${count.value}">${count.value}</option>`
+    options_to += `<option value="${count.value}" selected>${count.value}</option>`
+    
+    container.innerHTML = `<div class="select-score"><label for="from${increment_for_grade}">From</label><select name="from${increment_for_grade}" id="from${increment_for_grade}">${options_from}</select></div><div class="select-score"><label for="to${increment_for_grade}">To</label><select name="to${increment_for_grade}" id="to${increment_for_grade}">${options_to}</select></div><input type="text" name="score${increment_for_grade}" class="score" placeholder="daraja..." required>`
+
+    forms.appendChild(container)
+}
+
+function deleteSubject(id, name) {
+    const element = document.getElementById("deleteSubjectContainer")
+    element.innerHTML = `<div class="container">
+            <p>Do you really want delete '${name}' subject?</p>
+        <div class="buttonContainer">
+            <a href="deleteSubject?id=${Number(id)}" id="deleteSubject">Yes</a>
+            <a onclick="cancelDeleteSubject()">No</a>
+        </div>
+        </div>`
+    element.style.display = "flex"
+    document.addEventListener("keypress", eventListenerFunction)
+    element.addEventListener("click", clickWindowOnDeleteSubject)
+}
+function eventListenerFunction (key) {
+    if(key['key'] === "Enter") {
+        document.getElementById('deleteSubject').click()
+    }
+}
+function cancelDeleteSubject() {
+    document.getElementById("deleteSubjectContainer").style.display = "none"
+    document.removeEventListener("keypress", eventListenerFunction)
+    document.getElementById("deleteSubjectContainer").removeEventListener("click", clickWindowOnDeleteSubject)
+}
+
+function clickWindowOnDeleteSubject() {
+    cancelDeleteSubject()
 }

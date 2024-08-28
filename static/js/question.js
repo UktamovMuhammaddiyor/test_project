@@ -17,13 +17,13 @@ document.addEventListener("DOMContentLoaded", function() {
             subject_count = Number(subject_count.value)
             console.log(`Radio button with ID ${this.id} was clicked. Value: ${this.value}`);
             // Add your custom event handling code here
-            
-            let name = this.id.slice(0, -1),
+            let chiziq = this.id.indexOf('-')
+            let name = this.id.slice(0, chiziq),
                 question = document.getElementById(name), 
-                question_id = Number(name.slice(-1)),
+                question_id = Number(name.slice(6, this.id.length)),
                 previous_question = document.getElementById(`question${question_id}`),
                 next_question = document.getElementById(`question${question_id+1}`)
-            
+            // console.log(name)
             test['answers'].push({
                     "id": question.value,
                     "answer": this.value,

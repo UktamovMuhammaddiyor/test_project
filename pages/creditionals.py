@@ -1,5 +1,5 @@
-TOKEN = '5184905704:AAEKRJ_6V6dFJMe6KGC772_cPwOMrB9IgmM'
-SITE_URL = 'https://ab14-213-230-74-185.ngrok-free.app'
+TOKEN = '5184905704:AAGmBk9KPRoRgjKMCJBm06wLz9Pd1-gML6c'
+SITE_URL = 'https://99d0-213-230-78-219.ngrok-free.app'
 URL = f'{SITE_URL}/getpost/'
 BOT_API = f'https://api.telegram.org/bot{TOKEN}/'
 QUESTION_URL = f'{SITE_URL}/test?id='

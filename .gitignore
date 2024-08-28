@@ -3,6 +3,7 @@ __pycache__/
 uploads/
 *.py[cod]
 *$py.class
+simple.py
 
 # C extensions
 *.so
